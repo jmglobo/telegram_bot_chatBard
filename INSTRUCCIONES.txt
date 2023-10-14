@@ -1,0 +1,81 @@
+CREACION DE BOT DE TELEGRAM Y CONFIGURACION DE LOS COMPONENTES
+===============================================================
+    
+    1º  Crea una cuenta propia en Telegram y ponle un nombre.
+
+    2º  Obten el ID de tu cuenta. Cómo hacerlo: https://jejo.es/posts/telegram/1-obtener_nuestro_id_de_telegram/
+
+    3º  Crea un bot de Telegram, dale nombre y obten el token. Como hacerlo: https://blogthinkbig.com/crear-bot-de-telegram-botfather/
+
+    4º  Si ya dispones de una cuenta de Google, debes ir a Bard y extraer las cookies "Secure-1PSID" y "Secure-1PSIDTS". 
+        Cómo hacerlo estando en Bard en Google Chrome: Boton derecho raton > Inspeccionar > Aplicacion > Cookies
+
+    5º  Descarga el programa DB Browser para acceder a la base de datos y poder manipularla. Como hacerlo: https://sqlitebrowser.org/dl/
+
+    6º  Cuando dispongas todos los datos, debes introducirlos en los siguientes sitios:
+        -token -> debes introducir en "bot_telegram_chat_IA.py sustituyendo "INTRODUCE AQUÍ EL TOKEN DE TU BOT", entre comillas
+        -usuario -> debes ir a volumen/bot_telegram_chatgpt_BBDD.db > tabla "usuarios", e introducirlo en la columna "nombre_usuario"
+        -id usuario -> debes ir a volumen/bot_telegram_chatgpt_BBDD.db > tabla "usuarios", e introducirlo en la columna "id_usuario"
+        -Secure-1PSID -> debes ir a volumen/bot_telegram_chatgpt_BBDD.db > tabla "cookies", e introducirlo en la columna "valor"
+        -Secure-1PSIDTS -> debes ir a volumen/bot_telegram_chatgpt_BBDD.db > tabla "cookies", e introducirlo en la columna "valor"
+
+    7º  Crea un entorno virtual en tu maquina. Como hacerlo: https://www.analyticslane.com/2022/01/12/usar-entornos-de-python-en-vs-code/
+
+    8º  En la terminal de tu entorno virtual, escribe: pip install -r "requirements.txt"
+
+    9º  Ejecuta el archivo "bot_telegram_chat_IA.py"
+
+    10º Tu programa debería haberse ejecutado correctamente y deberías poder escribir a tu bot de Bard y que este 
+        te responda. 
+    
+
+
+
+
+
+AUTOMATIZACIÓN CON DOCKER
+=========================
+
+La carpeta trae ya creado tanto el Dockerfile como el docker-compose, ya que el sentido de este bot es tenerlo 
+funcionando permanentemente en una máquina y poner consultarlo en cualquier momento. Yo lo tengo funcionando 
+en una Raspberry, habiendo creado para ello un contenedor de Docker y un Volumen que contiene la base de datos,
+por lo que te daré las instrucciones para hacerlo igual que yo.
+
+Si tienes un sistema Linux y una vez hayas llegado al punto 6º de la sección anterior, deberás hacer lo
+siguiente:
+
+1º  En tu sistema Linux navega, mediante la terminal, hasta la carpeta "telegram_bot_chatBard"
+2º  Ejecuta el siguiente comando: docker-compose up -d
+3º  Tu programa debería haberse ejecutado correctamente y deberías poder escribir a tu bot de Bard y que este 
+    te responda. Ahora ya tienes el bot funcionando de forma constante mientras mantengas la máquina en funcionamiento
+
+
+
+
+
+
+PRECAUCIONES Y CUESTIONES IMPORTANTES
+================================
+
+Si bien he configurado el bot con control de errores y he pensado en casi todo lo que podría ocasionar un error para 
+solventarlo, hay algunas cuestiones que debes tener en cuenta:
+
+- Debes hacer un uso moderado del bot. La razón es que Google ha establecido políticas de límite de uso, por lo que
+si haces un uso desmedido del mismo, baneará tu IP temporalmente y no te dejará usarlo durante un tiempo. Si eso sucede
+puedes entrar en modo oculto en Google Chrome, refrescar las cookies y obtener nuevas cookies para "Secure-1PSID" y 
+"Secure-1PSIDTS" e incluirlas en la tabla "cookies".
+
+- En linea con lo anterior, el bot está preparado para que puedan hacer uso de él unas pocas personas y no llegar al 
+límite de uso de Google. Es por eso que, en la base de datos, puedes incluir más usuarios en la tabla "usuarios". Una vez
+los incluyas, todos ellos tendrán acceso al bot. Los usuarios que quieran acceder pero no estén registrados, recibirán
+un mensaje de aviso, se grabará su id y nombre en la tabla "nuevos_Usuarios" y se les expulsará del bot.
+
+- He establecido un mensaje autodestructivo avisando de que se deben esperar 30 segundos antes de volver a escribir
+otro mensaje al bot. Esto no es inmutable, puedes cambiarlo y establecer más o menos tiempo o directamente quitarlo.
+No obstante, creo que es bueno marcar tiempos al usuario para evitar colapsar el bot y tener que andar refrescando 
+las cookies a menudo.
+
+
+Haz un uso responsable del mismo y espero que lo disfrutes!
+
+

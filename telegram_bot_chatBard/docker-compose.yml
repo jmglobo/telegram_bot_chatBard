@@ -1,0 +1,27 @@
+# DOCKER COMPOSE para telegram_bot_chatBard
+
+version: '3'
+
+services:
+
+# Servicio para el funcionamiento esencial del bot y sus parámetros
+  c_telegram_bard_bot:
+    container_name: c_telegram_bard_bot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: "no"
+    volumes:
+      - "RUTA_AL_VOLUMEN_EN_EL_HOST/telegram_bot_chatBard/volumen:/usr/src/app/volumen"
+    networks:
+      - c_telegram_bard_bot_network
+
+# Creación de una RED, por si fuera necesaria
+networks:
+  c_telegram_bard_bot_network:
+
+# Creacion del volumen
+volumes:
+  volumen:
+
+
